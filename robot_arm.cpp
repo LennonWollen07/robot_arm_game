@@ -16,8 +16,43 @@ void RobotArm::setup() {
 
 };
 
-void RobotArm::changePositon() {
+void RobotArm::changePositon(int x, int y, int z) {
 
-  Braccio.ServoMovement(20, 90, 90, 90, 90, 90, 73);
+  positionBase = stickClick(z, positionBase);
+
+  Braccio.ServoMovement(positionDelay, positionBase, positionShoulder, positionElbow, positionWristRot, positionWristVer, positionGripper);
+
+};
+
+int RobotArm::stickClick(int z, int positionBase) {
+
+  Serial.println(z);
+  Serial.println(positionBase);
+
+  if(z == 1 && isStickCLickAdding) {
+
+    positionBase ++;
+
+    if(positionBase >= 180) {
+
+      isStickCLickAdding = false;
+
+    };
+
+  };
+
+  if(z == 1 && !isStickCLickAdding) {
+
+    positionBase --;
+
+    if(positionBase <= 0) {
+
+      isStickCLickAdding = true;
+
+    };
+
+  };
+
+  return positionBase;
 
 };

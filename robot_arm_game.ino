@@ -17,6 +17,5 @@ void loop() {
 
   // reads the 3 values of the joystick
   stick.readValues();
-  arm.changePositon();
-  
+  arm.changePositon(stick.x, stick.y, stick.z);
 };

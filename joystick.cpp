@@ -17,13 +17,4 @@ void JoyStick::readValues() {
   z = digitalRead(JoyStick_Z);
   z = !z;
 
-  // printing the values
-  Serial.print(x , DEC);
-  Serial.print(",");
-  Serial.print(y , DEC);
-  Serial.print(",");
-  Serial.println(z , DEC);
-
-  delay(100);
-
 };
