@@ -1,6 +1,14 @@
 #include <Arduino.h>
 #include "joystick.h"
 
+JoyStick::JoyStick(int JoyStick_X, int JoyStick_Y, int JoyStick_Z) {
+
+  this->JoyStick_X = JoyStick_X;
+  this->JoyStick_Y = JoyStick_Y;
+  this->JoyStick_Z = JoyStick_Z;
+
+};
+
 void JoyStick::setup() {
 
   pinMode(JoyStick_Z, INPUT);
@@ -13,8 +21,6 @@ void JoyStick::readValues() {
   x = analogRead(JoyStick_X);
   y = analogRead(JoyStick_Y);
 
-  // reading a bool that has its value flipped
   z = digitalRead(JoyStick_Z);
   z = !z;
-
 };

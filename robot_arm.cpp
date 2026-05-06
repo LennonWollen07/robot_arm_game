@@ -16,38 +16,46 @@ void RobotArm::setup() {
 
 };
 
-void RobotArm::changePositon(int x, int y, int z) {
+void RobotArm::changePositon(int x1, int y1, int z1, int x2, int y2, int z2) {
 
-  positionBase = stickClick(z, positionBase, 180, 0);
-  positionShoulder = stickMove(y, positionShoulder, 165, 15);
-  positionElbow = stickMove(y, positionElbow, 180, 0);
-  positionGripper = stickMove(x, positionGripper, 73, 10);
+  Serial.print(positionGripper);
+  Serial.print(",");
+  Serial.print(z1);
+  Serial.print(",");
+  Serial.print(z2);
+  Serial.println();
+
+  positionBase = stickMove(x1, positionBase, 180, 0);
+  positionShoulder = stickMove(y1, positionShoulder, 165, 15);
+  positionElbow = stickMove(y2, positionElbow, 180, 0);
+  positionWristVer = stickMove(x2, positionWristVer, 180, 0);
+  positionGripper = stickClick(z1, z2, positionGripper, 73, 10);
 
   Braccio.ServoMovement(positionDelay, positionBase, positionShoulder, positionElbow, positionWristRot, positionWristVer, positionGripper);
 
 };
 
-int RobotArm::stickClick(int n, int positionSection, int maxDegree, int minDegree) {
+int RobotArm::stickClick(int stick1, int stick2, int positionSection, int maxDegree, int minDegree) {
 
-  if(n == 1 && isStickCLickAdding) {
+  if(stick1 == 1) {
 
-    positionSection ++;
+    positionSection++ ;
 
     if(positionSection >= maxDegree) {
 
-      isStickCLickAdding = false;
+      positionSection = 73;
 
     };
 
   };
 
-  if(n == 1 && !isStickCLickAdding) {
+  if(stick2 == 1) {
 
-    positionSection --;
+    positionSection-- ;
 
     if(positionSection <= minDegree) {
 
-      isStickCLickAdding = true;
+      positionSection = 10;
 
     };
 
@@ -61,7 +69,7 @@ int RobotArm::stickMove(int n, int positionSection, int maxDegree, int minDegree
 
   if (n >= (511 + 128)) {
 
-    positionSection ++;
+    positionSection += 10;
 
     if (positionSection >= maxDegree) {
 
@@ -73,7 +81,7 @@ int RobotArm::stickMove(int n, int positionSection, int maxDegree, int minDegree
 
   if (n <= (511 - 128)) {
 
-    positionSection --;
+    positionSection -= 10;
 
     if (positionSection <= minDegree) {
 

@@ -2,6 +2,8 @@ class JoyStick {
 
   public:
 
+    JoyStick(int JoyStick_X, int JoyStick_Y, int JoyStick_Z);
+
     void setup();
     void readValues();
 
@@ -9,8 +11,8 @@ class JoyStick {
 
   private:
 
-    int JoyStick_X = 0; //x
-    int JoyStick_Y = 1; //y
-    int JoyStick_Z = 8; //key
+    int JoyStick_X; //x
+    int JoyStick_Y; //y
+    int JoyStick_Z; //key
 
 };
