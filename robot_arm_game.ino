@@ -8,7 +8,7 @@ RobotArm arm = RobotArm();
 
 void setup() {
 
-  Serial.begin(9600);
+  // sets up parts to be used
   stick1.setup();
   stick2.setup();
   arm.setup();
@@ -23,3 +23,4 @@ void loop() {
   arm.changePositon(stick1.x, stick1.y, stick1.z, stick2.x, stick2.y, stick2.z);
   
 };
+

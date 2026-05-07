@@ -16,14 +16,8 @@ void RobotArm::setup() {
 
 };
 
+// changes the internal position of the arm to then actually move the arm
 void RobotArm::changePositon(int x1, int y1, int z1, int x2, int y2, int z2) {
-
-  Serial.print(positionGripper);
-  Serial.print(",");
-  Serial.print(z1);
-  Serial.print(",");
-  Serial.print(z2);
-  Serial.println();
 
   positionBase = stickMove(x1, positionBase, 180, 0);
   positionShoulder = stickMove(y1, positionShoulder, 165, 15);
@@ -31,12 +25,15 @@ void RobotArm::changePositon(int x1, int y1, int z1, int x2, int y2, int z2) {
   positionWristVer = stickMove(x2, positionWristVer, 180, 0);
   positionGripper = stickClick(z1, z2, positionGripper, 73, 10);
 
+  // the function that moves the arm
   Braccio.ServoMovement(positionDelay, positionBase, positionShoulder, positionElbow, positionWristRot, positionWristVer, positionGripper);
 
 };
 
+// when the sticks are clicked either open or close gripper
 int RobotArm::stickClick(int stick1, int stick2, int positionSection, int maxDegree, int minDegree) {
 
+  // close gripper
   if(stick1 == 1) {
 
     positionSection++ ;
@@ -49,6 +46,7 @@ int RobotArm::stickClick(int stick1, int stick2, int positionSection, int maxDeg
 
   };
 
+  // open gripper
   if(stick2 == 1) {
 
     positionSection-- ;
@@ -65,8 +63,10 @@ int RobotArm::stickClick(int stick1, int stick2, int positionSection, int maxDeg
 
 };
 
+// function for stick movement
 int RobotArm::stickMove(int n, int positionSection, int maxDegree, int minDegree) {
 
+  // if moved to high then increase position
   if (n >= (511 + 128)) {
 
     positionSection += 10;
@@ -79,6 +79,7 @@ int RobotArm::stickMove(int n, int positionSection, int maxDegree, int minDegree
 
   };
 
+  // if moved to low decrease position
   if (n <= (511 - 128)) {
 
     positionSection -= 10;
@@ -94,3 +95,4 @@ int RobotArm::stickMove(int n, int positionSection, int maxDegree, int minDegree
   return positionSection;
 
 };
+
